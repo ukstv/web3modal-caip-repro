@@ -1,0 +1,13 @@
+diff --git a/node_modules/@web3modal/scaffold/dist/esm/src/modal/w3m-modal/index.js b/node_modules/@web3modal/scaffold/dist/esm/src/modal/w3m-modal/index.js
+index 164c32c..a9731bd 100644
+--- a/node_modules/@web3modal/scaffold/dist/esm/src/modal/w3m-modal/index.js
++++ b/node_modules/@web3modal/scaffold/dist/esm/src/modal/w3m-modal/index.js
+@@ -16,7 +16,7 @@ let W3mModal = class W3mModal extends LitElement {
+         this.unsubscribe = [];
+         this.abortController = undefined;
+         this.open = ModalController.state.open;
+-        this.caipAddress = AccountController.state.address;
++        this.caipAddress = AccountController.state.caipAddress;
+         this.isSiweEnabled = SIWEController.state.isSiweEnabled;
+         this.initializeTheming();
+         ApiController.prefetch();
