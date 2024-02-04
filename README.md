@@ -14,7 +14,7 @@ It looks like Web3Modal SIWE flow forgets about a SIWE session. The root cause i
 Web3Modal [gets `caipAddress` property
 initialized from `AccountController.state.address`](https://github.com/WalletConnect/web3modal/blob/V4/packages/scaffold/src/modal/w3m-modal/index.ts#L170) which _is not_ a CAIP address.
 
-See how `fix` branch here applies a patch to initialize `caipAddress` from `AccountController.state.caipAddress`.
+See how [`fix` branch](https://github.com/ukstv/web3modal-caip-repro/tree/fix) here applies a patch to initialize `caipAddress` from `AccountController.state.caipAddress`.
 After you sign in and refresh a page, a user still is considered signed in, which is an expected behaviour.
 
 # Usage
