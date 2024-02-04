@@ -1,30 +1,18 @@
-# React + TypeScript + Vite
+# Reproduction for a buggy Web3Modal SIWE support
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Expectation:
 
-Currently, two official plugins are available:
+1. A user signs in through SIWE flow ⇒ an application knows the person's address
+2. A user reloads a page through Command+R ⇒ the application continues the session
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Reality:
 
-## Expanding the ESLint configuration
+1. A user signs in through SIWE flow ⇒ the application knows the person's address
+2. A user reloads a page through Command+R ⇒ **the application asks for a SIWE signature again**
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+It looks like Web3Modal SIWE flow forgets about a SIWE session. The root cause is that
+Web3Modal [gets `caipAddress` property
+initialized from `AccountController.state.address`](https://github.com/WalletConnect/web3modal/blob/V4/packages/scaffold/src/modal/w3m-modal/index.ts#L170) which _is not_ a CAIP address.
 
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+See how `fix` branch here applies a patch to initialize `caipAddress` from `AccountController.state.caipAddress`.
+After you sign in and refresh a page, a user still is considered signed in, which is an expected behaviour.
