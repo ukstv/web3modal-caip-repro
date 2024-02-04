@@ -20,9 +20,8 @@ const metadata = {
   icons: ["https://avatars.githubusercontent.com/u/37784886"],
 };
 
-const chains = [mainnet, arbitrum];
 const config = defaultWagmiConfig({
-  chains, // required
+  chains: [mainnet, arbitrum], // required
   projectId, // required
   metadata, // required
   enableWalletConnect: true, // Optional - true by default

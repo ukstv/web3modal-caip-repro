@@ -11,9 +11,11 @@
   },
   "dependencies": {
     "@tanstack/react-query": "^5.18.1",
+    "@web3modal/siwe": "4.0.0-alpha.3",
     "@web3modal/wagmi": "4.0.0-alpha.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "siwe": "^2.1.4",
     "viem": "^2.7.3",
     "wagmi": "^2.5.5"
   },
